@@ -1,0 +1,381 @@
+---
+title: "CODIGO DEFINITIVO"
+author: "lhilarion"
+date: "21 de junio de 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+
+#######################CARPETA NACIONAL####################################
+
+library(data.table)
+library(dplyr)
+
+update.packages(checkBuilt = TRUE)
+
+Indicadoresp <- data.frame(ind = 0000000000,  year = 1111, codDANE = "00000", ageGroup = 500, sex = "Mujeres", value = -500)
+
+LoadToEnvironment <- function(RData, env = new.env()){
+  load(RData, env)
+  return(env) 
+}
+
+x<-getwd()
+y<-"C:/Users/glori/Dropbox/Contrato 318/Nac"
+
+
+files<- list.files(path=y, pattern="Rdata$" )
+cont<-c(6)
+
+
+i<-1
+
+for(i in 1:length(files) ) {
+  print(i)
+  
+  a<-LoadToEnvironment(paste(y,files[i],sep = "/"))
+  
+  r1<-as.list(a)
+  
+  CalculoIndicadores <-r1[[1]]
+  
+  cont[i]<- nrow(CalculoIndicadores)
+  
+  CalculoIndicadores$codDANE <- as.character(CalculoIndicadores$codDANE)
+
+  Indicadoresp <- rbind(Indicadoresp,   CalculoIndicadores)
+ Indicadoresp
+   rm(CalculoIndicadores) 
+}
+
+
+Indicadoresp <- filter(Indicadoresp , codDANE != "00000")
+
+Nacional1 <- Indicadoresp
+
+Nacional1$ind <- as.numeric(Nacional1$ind)
+Nacional1$year <- as.numeric(Nacional1$year)
+Nacional1$codDANE <- as.character(Nacional1$codDANE)
+Nacional1$ageGroup <- as.numeric(Nacional1$ageGroup)
+Nacional1$sex <- as.character(Nacional1$sex)
+Nacional1$value <- as.numeric(Nacional1$value)
+
+
+Nacional1 <- filter(Nacional1, ind != 1000005310)
+
+Nacional1 <- filter(Nacional1, ind != 1000006310)
+
+Nacional_Sivigila_LH <- Nacional1
+
+
+save(Nacional_Sivigila_LH, file = "C:/Users/glori/Dropbox/CodigosSivigila/Nacional/Nacional_Sivigila_LH.Rdata")
+
+load("C:/Users/glori/Dropbox/CodigosSivigila/Nacional/Nacional_Sivigila_LH.Rdata")
+
+
+```
+```{r}
+
+
+################ DEPARTAMENTAL#############################
+
+Indicadoresp <- data.frame(ind = 0000000000,  year = 1111, codDANE = "00000", ageGroup = 500, sex = "Mujeres", value = -500)
+
+LoadToEnvironment <- function(RData, env = new.env()){
+  load(RData, env)
+  return(env) 
+}
+
+x<-getwd()
+y<-"C:/Users/glori/Dropbox/CodigosSivigila/Departamental"
+
+
+files<- list.files(path=y, pattern="Rdata$" )
+cont<-c(6)
+
+
+i<-1
+
+for(i in 1:length(files) ) {
+  print(i)
+  
+  a<-LoadToEnvironment(paste(y,files[i],sep = "/"))
+  
+  r1<-as.list(a)
+  
+  CalculoIndicadores <-r1[[1]]
+  
+  cont[i]<- nrow(CalculoIndicadores)
+  
+  CalculoIndicadores$codDANE <- as.character(CalculoIndicadores$codDANE)
+
+  Indicadoresp <- rbind(Indicadoresp,   CalculoIndicadores)
+ Indicadoresp
+   rm(CalculoIndicadores) 
+}
+
+Indicadoresp <- Indicadoresp[Indicadoresp$codDANE != "00000", ]
+
+
+Departamental_Sivigila_LH <- Indicadoresp
+
+Departamental_Sivigila_LH$ind <- as.numeric(Departamental_Sivigila_LH$ind)
+Departamental_Sivigila_LH$year <- as.numeric(Departamental_Sivigila_LH$year)
+Departamental_Sivigila_LH$codDANE <- as.character(Departamental_Sivigila_LH$codDANE)
+Departamental_Sivigila_LH$ageGroup <- as.numeric(Departamental_Sivigila_LH$ageGroup)
+Departamental_Sivigila_LH$sex <- as.character(Departamental_Sivigila_LH$sex)
+Departamental_Sivigila_LH$value <- as.numeric(Departamental_Sivigila_LH$value)
+
+
+
+save(Departamental_Sivigila_LH, file = "C:/Users/glori/Dropbox/CodigosSivigila/Departamental/Departamental_Sivigila_LH.Rdata")
+
+write.csv(Departamental_Sivigila_LH, "C:/Users/glori/Dropbox/CodigosSivigila/Departamental/Departamental_Sivigila_LH.csv", row.names = F)
+
+load("C:/Users/lhilarion/Dropbox/CodigosSivigila/Departamental/Departamental_Sivigila_LH.Rdata")
+
+
+```
+```{r}
+
+#######MUNICIPAL- TASAS PARA TODOS LOS EVENTOS CON Y SIN DESAGREGACION (Municipal1)
+
+Indicadoresp <- data.frame(ind = 0000000000,  year = 1111, codDANE = "00000", ageGroup = 500, sex = "Mujeres", value = -500)
+
+LoadToEnvironment <- function(RData, env = new.env()){
+  load(RData, env)
+  return(env) 
+}
+
+x<-getwd()
+y<-"C:/Users/glori/Dropbox/Contrato 318/Municipal/TasasMunicipales"
+
+
+files<- list.files(path=y, pattern="Rdata$" )
+cont<-c(6)
+
+
+i<-1
+
+for(i in 1:length(files) ) {
+  print(i)
+  
+  a<-LoadToEnvironment(paste(y,files[i],sep = "/"))
+  
+  r1<-as.list(a)
+  
+  CalculoIndicadores <-r1[[1]]
+  
+  cont[i]<- nrow(CalculoIndicadores)
+  
+  CalculoIndicadores$codDANE <- as.character(CalculoIndicadores$codDANE)
+
+  Indicadoresp <- rbind(Indicadoresp,   CalculoIndicadores)
+ Indicadoresp
+   rm(CalculoIndicadores) 
+}
+
+Indicadoresp <- Indicadoresp[Indicadoresp$codDANE != "00000", ]
+
+
+Municipal1_Sivigila_LH <- Indicadoresp
+
+Municipal1_Sivigila_LH$ind <- as.numeric(Municipal1_Sivigila_LH$ind)
+Municipal1_Sivigila_LH$year <- as.numeric(Municipal1_Sivigila_LH$year)
+Municipal1_Sivigila_LH$codDANE <- as.character(Municipal1_Sivigila_LH$codDANE)
+Municipal1_Sivigila_LH$ageGroup <- as.numeric(Municipal1_Sivigila_LH$ageGroup)
+Municipal1_Sivigila_LH$sex <- as.character(Municipal1_Sivigila_LH$sex)
+Municipal1_Sivigila_LH$value <- as.numeric(Municipal1_Sivigila_LH$value)
+
+Municipal1_Sivigila_LH$value[Municipal1_Sivigila_LH$value == "Inf"] <- 0
+Municipal1_Sivigila_LH$value[Municipal1_Sivigila_LH$value == "NaN"] <- 0
+
+save(Municipal1_Sivigila_LH, file = "C:/Users/glori/Dropbox/CodigosSivigila/Municipal/Municipal1_Sivigila_LH.Rdata")
+
+write.csv(Municipal1_Sivigila_LH, "C:/Users/glori/Dropbox/CodigosSivigila/Municipal/Municipal1_Sivigila_LH.csv", row.names = F)
+
+```
+```{r}
+#######MUNICIPAL2- CASOS TASAS PARA TODOS LOS EVENTOS CON Y SIN DESAGREGACION (Municipal2)
+
+Indicadoresp <- data.frame(ind = 0000000000,  year = 1111, codDANE = "00000", ageGroup = 500, sex = "Mujeres", value = -500)
+
+LoadToEnvironment <- function(RData, env = new.env()){
+  load(RData, env)
+  return(env) 
+}
+
+x<-getwd()
+y<-"C:/Users/LILIANA HILARION/Dropbox/Contrato 318/Municipal/CasosTasasMunicipales"
+
+
+files<- list.files(path=y, pattern="Rdata$" )
+cont<-c(6)
+
+
+i<-1
+
+for(i in 1:length(files) ) {
+  print(i)
+  
+  a<-LoadToEnvironment(paste(y,files[i],sep = "/"))
+  
+  r1<-as.list(a)
+  
+  CalculoIndicadores <-r1[[1]]
+  
+  cont[i]<- nrow(CalculoIndicadores)
+  
+  CalculoIndicadores$codDANE <- as.character(CalculoIndicadores$codDANE)
+
+  Indicadoresp <- rbind(Indicadoresp,   CalculoIndicadores)
+ Indicadoresp
+   rm(CalculoIndicadores) 
+}
+
+Indicadoresp <- Indicadoresp[Indicadoresp$codDANE != "00000", ]
+
+
+Municipal2_Sivigila_LH <- Indicadoresp
+
+Municipal2_Sivigila_LH$ind <- as.numeric(Municipal2_Sivigila_LH$ind)
+Municipal2_Sivigila_LH$year <- as.numeric(Municipal2_Sivigila_LH$year)
+Municipal2_Sivigila_LH$codDANE <- as.character(Municipal2_Sivigila_LH$codDANE)
+Municipal2_Sivigila_LH$ageGroup <- as.numeric(Municipal2_Sivigila_LH$ageGroup)
+Municipal2_Sivigila_LH$sex <- as.character(Municipal2_Sivigila_LH$sex)
+Municipal2_Sivigila_LH$value <- as.numeric(Municipal2_Sivigila_LH$value)
+
+Municipal2_Sivigila_LH$value[Municipal2_Sivigila_LH$value == "Inf"] <- 0
+Municipal2_Sivigila_LH$value[Municipal2_Sivigila_LH$value == "NaN"] <- 0
+
+save(Municipal2_Sivigila_LH, file = "C:/Users/LILIANA HILARION/Dropbox/CodigosSivigila/Municipal/Municipal2_Sivigila_LH.Rdata")
+
+write.csv(Municipal2_Sivigila_LH, "C:/Users/LILIANA HILARION/Dropbox/CodigosSivigila/Municipal/Municipal2_Sivigila_LH.csv", row.names = F)
+
+```
+```{r}
+
+#######MUNICIPAL3- TASAS DE LETALIDAD CON Y SIN DESAGREGACION (Municipal3)
+
+Indicadoresp <- data.frame(ind = 0000000000,  year = 1111, codDANE = "00000", ageGroup = 500, sex = "Mujeres", value = -500)
+
+LoadToEnvironment <- function(RData, env = new.env()){
+  load(RData, env)
+  return(env) 
+}
+
+x<-getwd()
+y<-"C:/Users/lhilarion/Dropbox/Contrato 318/Municipal/TasasLetalidadMun"
+
+
+files<- list.files(path=y, pattern="Rdata$" )
+cont<-c(6)
+
+
+i<-1
+
+for(i in 1:length(files) ) {
+  print(i)
+  
+  a<-LoadToEnvironment(paste(y,files[i],sep = "/"))
+  
+  r1<-as.list(a)
+  
+  CalculoIndicadores <-r1[[1]]
+  
+  cont[i]<- nrow(CalculoIndicadores)
+  
+  CalculoIndicadores$codDANE <- as.character(CalculoIndicadores$codDANE)
+
+  Indicadoresp <- rbind(Indicadoresp,   CalculoIndicadores)
+ Indicadoresp
+   rm(CalculoIndicadores) 
+}
+
+Indicadoresp <- Indicadoresp[Indicadoresp$codDANE != "00000", ]
+
+
+Municipal3_Sivigila_LH <- Indicadoresp
+
+Municipal3_Sivigila_LH$ind <- as.numeric(Municipal3_Sivigila_LH$ind)
+Municipal3_Sivigila_LH$year <- as.numeric(Municipal3_Sivigila_LH$year)
+Municipal3_Sivigila_LH$codDANE <- as.character(Municipal3_Sivigila_LH$codDANE)
+Municipal3_Sivigila_LH$ageGroup <- as.numeric(Municipal3_Sivigila_LH$ageGroup)
+Municipal3_Sivigila_LH$sex <- as.character(Municipal3_Sivigila_LH$sex)
+Municipal3_Sivigila_LH$value <- as.numeric(Municipal3_Sivigila_LH$value)
+
+Municipal3_Sivigila_LH$value[Municipal3_Sivigila_LH$value == "Inf"] <- 0
+Municipal3_Sivigila_LH$value[Municipal3_Sivigila_LH$value == "NaN"] <- 0
+
+save(Municipal3_Sivigila_LH, file = "C:/Users/lhilarion/Dropbox/CodigosSivigila/Municipal/Municipal3_Sivigila_LH.Rdata")
+
+write.csv(Municipal3_Sivigila_LH, "C:/Users/lhilarion/Dropbox/CodigosSivigila/Municipal/Municipal3_Sivigila_LH.csv", row.names = F)
+
+
+```
+```{r}
+
+#######MUNICIPAL3- CASOS TASAS DE LETALIDAD CON Y SIN DESAGREGACION (Municipal3)
+
+Indicadoresp <- data.frame(ind = 0000000000,  year = 1111, codDANE = "00000", ageGroup = 500, sex = "Mujeres", value = -500)
+
+LoadToEnvironment <- function(RData, env = new.env()){
+  load(RData, env)
+  return(env) 
+}
+
+x<-getwd()
+y<-"C:/Users/lhilarion/Dropbox/Contrato 318/Municipal/CasosLetalidadMun"
+
+
+files<- list.files(path=y, pattern="Rdata$" )
+cont<-c(6)
+
+
+i<-1
+
+for(i in 1:length(files) ) {
+  print(i)
+  
+  a<-LoadToEnvironment(paste(y,files[i],sep = "/"))
+  
+  r1<-as.list(a)
+  
+  CalculoIndicadores <-r1[[1]]
+  
+  cont[i]<- nrow(CalculoIndicadores)
+  
+  CalculoIndicadores$codDANE <- as.character(CalculoIndicadores$codDANE)
+
+  Indicadoresp <- rbind(Indicadoresp,   CalculoIndicadores)
+ Indicadoresp
+   rm(CalculoIndicadores) 
+}
+
+Indicadoresp <- Indicadoresp[Indicadoresp$codDANE != "00000", ]
+
+
+Municipal4_Sivigila_LH <- Indicadoresp
+
+Municipal4_Sivigila_LH$ind <- as.numeric(Municipal4_Sivigila_LH$ind)
+Municipal4_Sivigila_LH$year <- as.numeric(Municipal4_Sivigila_LH$year)
+Municipal4_Sivigila_LH$codDANE <- as.character(Municipal4_Sivigila_LH$codDANE)
+Municipal4_Sivigila_LH$ageGroup <- as.numeric(Municipal4_Sivigila_LH$ageGroup)
+Municipal4_Sivigila_LH$sex <- as.character(Municipal4_Sivigila_LH$sex)
+Municipal4_Sivigila_LH$value <- as.numeric(Municipal4_Sivigila_LH$value)
+
+Municipal4_Sivigila_LH$value[Municipal4_Sivigila_LH$value == "Inf"] <- 0
+Municipal4_Sivigila_LH$value[Municipal4_Sivigila_LH$value == "NaN"] <- 0
+
+save(Municipal4_Sivigila_LH, file = "C:/Users/lhilarion/Dropbox/CodigosSivigila/Municipal/Municipal4_Sivigila_LH.Rdata")
+
+write.csv(Municipal4_Sivigila_LH, "C:/Users/lhilarion/Dropbox/CodigosSivigila/Municipal/Municipal4_Sivigila_LH.csv", row.names = F)
+
+
+
+```
+
